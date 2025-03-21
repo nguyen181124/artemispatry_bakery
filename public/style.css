@@ -1,0 +1,498 @@
+/* Định dạng chung */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+}
+
+/* Thanh header trên cùng */
+.top-header {
+    background-color: #bc9669;
+    color: white;
+    padding-top: 5px;
+}
+
+.container-top {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 30px;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 220px;
+}
+
+.user {
+    margin-right: 5px;
+}
+
+.cart-icon {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    margin-left: 5px;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #5a4432;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.ti-shopping-cart{
+    font-size: 20px;
+    margin-right: 8px;
+    color: white;
+}
+
+/* Thanh menu */
+.main-nav {
+    background-color: #bc9669;
+}
+
+.main-nav .logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+}
+
+.tab :hover {
+    color: #5a4432;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.search-bar button i {
+    font-size: 18px;
+    color: white;
+}
+
+/* Dropdown menu */
+/* Ẩn dropdown-menu mặc định */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -40px;
+    background-color: rgba(95, 75, 60, 0.8);
+    list-style: none;
+    padding: 0px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 180px; /* Giúp dropdown không bị quá nhỏ */
+    z-index: 100;
+}
+
+/* Hiển thị dropdown-menu khi hover vào phần tử cha */
+.dropdown:hover .dropdown-menu {    
+    display: block;
+}
+.dropdown .tab:hover{
+    color: #5a4432;
+}
+
+/* Căn chỉnh dropdown đúng vị trí */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu li {
+    border-bottom: 1px solid rgba(188, 150, 105, 0.5);
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 8px 12px;
+}
+
+/* Hiệu ứng hover */
+.dropdown-menu li a:hover {
+    text-decoration: underline;
+}
+
+/* CSS cho banner chạy tự động */
+
+.swiper-button-prev, .swiper-button-next{
+    color: #5a4432;
+}
+
+/* CSS homebanner */
+.homebanner {
+    background-color: #bc9669;
+    padding: 70px;
+}
+
+.homebanner .grid{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.homebanner .grid .grid-item .card{
+    border:#000000;
+    background-color: #000000;
+}
+
+.menu {
+    background-color: #bc9669;
+    color: #b38b5e;
+    padding: 50px;
+    text-align: center;
+}
+
+.menu h1{
+    color: #5F4B3C;
+}
+
+.product-container {
+    max-width: 500%;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 1;
+    padding-right: 15px;
+}
+
+.product-info h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3c2a1e;
+}
+
+.product-info p {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.product-image {
+    width: 120px;
+    height: 120px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Chi tiết sản phẩm */
+
+.product {
+    width: 200px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.product img {
+    width: 100%;
+    border-radius: 8px;
+}
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    width: 400px;   
+    border-radius: 8px;
+    text-align: center;
+    border: 0;
+}
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 25px;
+}
+.quantity {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.all {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background: #5F4B3C; 
+    color:white; 
+    margin-top:20px;
+}
+
+.all:hover {
+    background-color: #3c2a1e;
+    color: #b38b5e;
+}
+/* San pham moi */
+
+.new_cake{
+    background-color: #5F4B3C;
+    color: #b38b5e;
+    padding: 50px;
+    text-align: center;
+}
+
+/* San pham noi bat*/
+
+.hot-product {
+    background-color: #bc9669;
+}
+
+.hot-product {
+    display: flex;
+    justify-content: center;
+}
+
+.boder {
+    padding: 10px;
+    background-color: white;
+    width: 530px;
+    height: 325px;
+    margin: 20px;
+}
+
+.image-card {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-card img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-card:hover img {
+    transform: scale(1.1);
+}
+
+/* thong tin*/
+.about-us {
+    background-color: #fdfaf5;
+    padding: 50px 0;
+    margin-bottom: 110px;
+}
+
+.container-about {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    color: #c49a6c;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.about-text .highlight {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #c49a6c;
+    margin: 10px 0;
+}
+
+.about-text h3 {
+    font-size: 18px;
+    color: #6c4e3f;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.about-text p {
+    font-size: 16px;
+    color: #4a3d35;
+    line-height: 1.6;
+}
+
+.btn-more {
+    background-color: #c49a6c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.btn-more:hover {
+    background-color: #a37e56;
+}
+
+.footer {
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+
+.footer-content {
+    position: absolute;
+    display: flex;
+}
+
+.container-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.footer-info, .footer-social {
+    flex: 1;
+    min-width: 300px;
+}
+
+.footer-info h3, .footer-social h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.social-icons a {
+    color: white;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #FFD700;
+}
