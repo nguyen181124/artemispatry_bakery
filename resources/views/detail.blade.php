@@ -48,7 +48,7 @@
 
     .cake-info .price {
         font-size: 24px;
-        color: #c49a6c;
+        color: #bc9669;
         margin-bottom: 20px;
     }
 
@@ -96,7 +96,7 @@
 
     #success-message {
         margin-top: 15px;
-        color: green;
+        color: #bc9669;
     }
 
     #add-to-cart-form {

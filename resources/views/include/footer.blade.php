@@ -1,8 +1,8 @@
 <footer class="footer">
     <div class="container-footer">
-        <img src="img/footer.jpg" alt="">
+        <img src="{{ asset('img/footer.jpg') }}" alt="">
         <div class="footer-content">
-            <div class="footer-info">
+            <div class="footer-info">   
                 <h3>Shop Bánh Nhóm gì đó</h3>
                 <p>119, ngõ 20, đường Mỹ Đình, Nam Từ Liêm, Hà Nội</p>
                 <p>Anh em Sóc Sơn, Hà Nội</p>

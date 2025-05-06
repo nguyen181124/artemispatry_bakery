@@ -3,260 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Thêm CSRF token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Quản lý bánh</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Giữ nguyên CSS của bạn */
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            font-weight: bold;
-            display: block;
-        }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .btn {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .btn-add {
-            background: green;
-            color: white;
-        }
-        .btn-edit {
-            background: orange;
-            color: white;
-        }
-        .btn-delete {
-            background: red;
-            color: white;
-        }
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-        .card {
-            margin-bottom: 15px;
-        }
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .card-body img {
-            margin-top: 10px;
-        }
-        .button-group {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            margin-top: 10px;
+        body { background-color: #bc9669; min-height: 100vh; display: flex; flex-direction: column; }
+        .main-container { flex: 1; width: 100%; padding: 20px}
+        .card img { object-fit: cover; height: 150px; }
+        .btn-add, .btn-edit, .btn-delete { border-radius: 5px; }
+        .btn-add { background: #5F4B3C; color: #fff; }
+        .btn-edit { background: #5F4B3C; color: #fff; }
+        .btn-delete { background: #dc3545; color: #fff; }
+        .nav-link {color: #000}
+        .nav-link:hover {
+            color: #000
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h2 id="form-title">Thêm sản phẩm</h2>
-    <div id="success-message" class="alert alert-success" style="display: none;"></div>
-    <div id="error-message" class="error"></div>
-
-    <form id="cake-form">
-        <input type="hidden" name="id" id="id">
-
-        <div class="form-group">
-            <label>Tên sản phẩm:</label>
-            <input type="text" name="name" id="name" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>URL Ảnh:</label>
-            <input type="text" name="img" id="img" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Giá:</label>
-            <input type="number" name="price" id="price" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Thông tin:</label>
-            <textarea name="info" id="info" class="form-control" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Danh mục:</label>
-            <select name="category" id="category" class="form-control" required>
-                <option value="1">Bánh sinh nhật</option>
-                <option value="2">Bánh lẻ</option>
-                <option value="3">Đồ uống</option>
-                <option value="4">Giftset</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-add">Lưu sản phẩm</button>
-    </form>
-
-    <h2 class="mt-5">Danh sách sản phẩm</h2>
-    <div id="cake-list">
-        @foreach($cakes as $cake)
-        <div class="card mb-3" data-id="{{ $cake->id }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ $cake->name }}</h5>
-                <img src="{{ $cake->img }}" class="img-fluid" style="max-width: 200px;">
-                <p>Giá: {{ $cake->price }} VNĐ</p>
-                <p>{{ $cake->info }}</p>
-                <div class="button-group">
-                    <button class="btn btn-edit" onclick="editCake('{{ $cake->id }}', '{{ $cake->name }}', '{{ $cake->img }}', '{{ $cake->price }}', '{{ $cake->info }}', '{{ $cake->category }}')">Sửa</button>
-                    <button class="btn btn-delete" onclick="deleteCake('{{ $cake->id }}')">Xóa</button>
-                </div>
+<nav class="navbar navbar-expand-lg" style="background-color: #5F4B3C">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: white" href="#">Quản lý sản phẩm</a>
+  </div>
+</nav>
+<div class="main-container container-fluid">
+    <div class="row g-4">
+        <!-- Form Section -->
+        <div class="col-12 col-lg-4">
+            <div class="p-4 bg-white rounded shadow-sm">
+                <h4 id="form-title" class="mb-3 text-center">Thêm sản phẩm</h4>
+                <div id="success-message" class="alert alert-success d-none"></div>
+                <div id="error-message" class="alert alert-danger d-none"></div>
+                <form id="cake-form">
+                    <input type="hidden" name="id" id="id">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên sản phẩm</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="img" class="form-label">URL Ảnh</label>
+                        <input type="url" id="img" name="img" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá (VNĐ)</label>
+                        <input type="number" id="price" name="price" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="info" class="form-label">Thông tin</label>
+                        <textarea id="info" name="info" rows="3" class="form-control" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Danh mục</label>
+                        <select id="category" name="category" class="form-select" required>
+                            <option value="1">Bánh sinh nhật</option>
+                            <option value="2">Bánh lẻ</option>
+                            <option value="3">Đồ uống</option>
+                            <option value="4">Giftset</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-add w-100">Lưu sản phẩm</button>
+                </form>
             </div>
         </div>
-        @endforeach
+        <!-- Products Section -->
+        <div class="col-12 col-lg-8">
+            <h4 class="mb-3">Danh sách sản phẩm</h4>
+            <ul class="nav nav-tabs mb-3" id="categoryTabs" role="tablist">
+                @foreach([1 => 'cat1', 2 => 'cat2', 3 => 'cat3', 4 => 'cat4'] as $catId => $tabId)
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @if($loop->first) active @endif" data-bs-toggle="tab" data-bs-target="#{{ $tabId }}" type="button">{{ ['Bánh sinh nhật','Bánh lẻ','Đồ uống','Giftset'][$catId-1] }}</button>
+                </li>
+                @endforeach
+            </ul>
+            <div class="tab-content" id="productTabs">
+                @foreach([1 => 'cat1', 2 => 'cat2', 3 => 'cat3', 4 => 'cat4'] as $catId => $tabId)
+                <div class="tab-pane fade @if($loop->first) show active @endif" id="{{ $tabId }}">
+                    <div class="row g-3" id="list-{{ $tabId }}">
+                        @foreach($cakes->where('category', $catId) as $cake)
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3" data-id="{{ $cake->id }}" data-name="{{ addslashes($cake->name) }}" data-img="{{ $cake->img }}" data-price="{{ $cake->price }}" data-info="{{ addslashes($cake->info) }}" data-category="{{ $cake->category }}">
+                            <div class="card h-100 shadow-sm">
+                                <img src="{{ $cake->img }}" class="card-img-top" alt="{{ $cake->name }}">
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-title">{{ $cake->name }}</h6>
+                                    <p class="mb-2 small">Giá: <strong>{{ number_format($cake->price) }} VNĐ</strong></p>
+                                    <p class="mb-3 text-truncate">{{ $cake->info }}</p>
+                                    <div class="mt-auto d-flex gap-2">
+                                        <button class="btn btn-edit btn-sm flex-fill" onclick="editCake(this)">Sửa</button>
+                                        <button class="btn btn-delete btn-sm flex-fill" onclick="deleteCake('{{ $cake->id }}', '{{ $tabId }}')">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Hiển thị thông báo
     function showMessage(elementId, message, isSuccess = true) {
-        const element = document.getElementById(elementId);
-        element.textContent = message;
-        element.style.display = 'block';
-        if (isSuccess) {
-            element.classList.remove('error');
-            element.classList.add('alert', 'alert-success');
-        } else {
-            element.classList.remove('alert', 'alert-success');
-            element.classList.add('error');
-        }
+        const el = document.getElementById(elementId);
+        el.textContent = message;
+        el.classList.remove('d-none', isSuccess ? 'alert-danger' : 'alert-success');
+        el.classList.add('alert', isSuccess ? 'alert-success' : 'alert-danger');
     }
-
-    // Xóa form sau khi thêm/sửa
     function clearForm() {
         document.getElementById('cake-form').reset();
         document.getElementById('id').value = '';
         document.getElementById('form-title').textContent = 'Thêm sản phẩm';
     }
-
-    // Xử lý form submit qua AJAX
-    document.getElementById('cake-form').addEventListener('submit', function (e) {
+    document.getElementById('cake-form').addEventListener('submit', function(e) {
         e.preventDefault();
-
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-
+        const data = Object.fromEntries(new FormData(this));
         fetch('{{ route('addcake.storeOrUpdate') }}', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
+            body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showMessage('success-message', data.message);
-                showMessage('error-message', '', false);
-
-                const cakeList = document.getElementById('cake-list');
-                const newCake = data.cake;
-                const newCard = `
-                    <div class="card mb-3" data-id="${newCake.id}">
-                        <div class="card-body">
-                            <h5 class="card-title">${newCake.name}</h5>
-                            <img src="${newCake.img}" class="img-fluid" style="max-width: 200px;">
-                            <p>Giá: ${newCake.price} VNĐ</p>
-                            <p>${newCake.info}</p>
-                            <div class="button-group">
-                                <button class="btn btn-edit" onclick="editCake('${newCake.id}', '${newCake.name}', '${newCake.img}', '${newCake.price}', '${newCake.info}', '${newCake.category}')">Sửa</button>
-                                <button class="btn btn-delete" onclick="deleteCake('${newCake.id}')">Xóa</button>
-                            </div>
-                        </div>
-                    </div>`;
-
-                if (data.isUpdate) {
-                    const oldCard = cakeList.querySelector(`[data-id="${newCake.id}"]`);
-                    if (oldCard) oldCard.outerHTML = newCard;
-                } else {
-                    cakeList.insertAdjacentHTML('afterbegin', newCard);
-                }
-
+        .then(res => res.json())
+        .then(resp => {
+            if (resp.success) {
+                showMessage('success-message', resp.message);
+                clearMessage('error-message');
+                updateCard(resp.cake);
                 clearForm();
-            } else {
-                showMessage('error-message', data.message, false);
-            }
+            } else showMessage('error-message', resp.message, false);
         })
-        .catch(error => {
-            showMessage('error-message', 'Lỗi khi lưu: ' + error.message, false);
-        });
+        .catch(err => showMessage('error-message', 'Lỗi khi lưu: ' + err.message, false));
     });
-
-    // Hàm chỉnh sửa bánh
-    function editCake(id, name, img, price, info, category) {
-        document.getElementById('id').value = id;
-        document.getElementById('name').value = name;
-        document.getElementById('img').value = img;
-        document.getElementById('price').value = price;
-        document.getElementById('info').value = info;
-        document.getElementById('category').value = category;
-        document.getElementById('form-title').textContent = 'Chỉnh sửa Bánh';
+    function editCake(btn) {
+        const card = btn.closest('[data-id]');
+        document.getElementById('id').value = card.dataset.id;
+        document.getElementById('name').value = card.dataset.name;
+        document.getElementById('img').value = card.dataset.img;
+        document.getElementById('price').value = card.dataset.price;
+        document.getElementById('info').value = card.dataset.info;
+        document.getElementById('category').value = card.dataset.category;
+        document.getElementById('form-title').textContent = 'Chỉnh sửa sản phẩm';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Hàm xóa bánh (Đã sửa)
-    function deleteCake(id) {
+    function deleteCake(id, tabId) {
         if (!confirm('Bạn có chắc muốn xóa sản phẩm này không?')) return;
-
-        fetch(`/addcake/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
+        fetch(`/addcake/${id}`, { method: 'DELETE', headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content } })
+        .then(res => res.json())
+        .then(resp => {
+            if (resp.success) {
+                showMessage('success-message', resp.message);
+                document.querySelector(`#list-${tabId} [data-id="${id}"]`).remove();
+            } else showMessage('error-message', resp.message, false);
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Lỗi server: ${response.status} - ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                showMessage('success-message', data.message);
-                const cakeCard = document.querySelector(`[data-id="${id}"]`);
-                if (cakeCard) cakeCard.remove();
-            } else {
-                showMessage('error-message', data.message, false);
-            }
-        })
-        .catch(error => {
-            showMessage('error-message', 'Không thể xóa sản phẩm: ' + error.message, false);
-            console.error('Lỗi:', error);
-        });
+        .catch(err => showMessage('error-message', 'Lỗi khi xóa: ' + err.message, false));
     }
+    function updateCard(cake) {
+        const tabId = 'cat' + cake.category;
+        const container = document.getElementById('list-' + tabId);
+        let card = container.querySelector(`[data-id="${cake.id}"]`);
+        const html = `
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" data-id="${cake.id}" data-name="${cake.name}" data-img="${cake.img}" data-price="${cake.price}" data-info="${cake.info}" data-category="${cake.category}">
+            <div class="card h-100 shadow-sm">
+                <img src="${cake.img}" class="card-img-top" alt="${cake.name}">
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title">${cake.name}</h6>
+                    <p class="mb-2 small">Giá: <strong>${numberWithCommas(cake.price)} VNĐ</strong></p>
+                    <p class="mb-3 text-truncate">${cake.info}</p>
+                    <div class="mt-auto d-flex gap-2">
+                        <button class="btn btn-edit btn-sm flex-fill" onclick="editCake(this)">Sửa</button>
+                        <button class="btn btn-delete btn-sm flex-fill" onclick="deleteCake('${cake.id}','${tabId}')">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        if (card) card.outerHTML = html; else container.insertAdjacentHTML('afterbegin', html);
+    }
+    function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+    function clearMessage(id) { const el = document.getElementById(id); el.textContent = ''; el.classList.add('d-none'); }
 </script>
-
 </body>
 </html>

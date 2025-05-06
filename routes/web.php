@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/addcake/store-or-update', [AddCakeController::class, 'storeOrUpdate'])->name('addcake.storeOrUpdate');
     Route::delete('/addcake/{id}', [AddCakeController::class, 'destroy'])->name('addcake.destroy');
 
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

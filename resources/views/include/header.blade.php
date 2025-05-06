@@ -5,7 +5,7 @@
             <div class="container-top">
                 <div class="user-info">
                     <a href="register" class="user"><i class="ti-user"></i> TÀI KHOẢN</a> |
-                    <a href="cart" class="cart-icon">
+                    <a href="{{ route('cart.index') }}" class="cart-icon">
                         <i class="ti-shopping-cart"></i>
                         <span id="cart-count">{{ $cartItemCount }}</span>
                     </a>
