@@ -1,78 +1,76 @@
 @extends('layout.master')
+
 @section('maincontent')
-<div class="menu" style="margin-bottom: 97px;">
-    <h1>BÁNH SINH NHẬT</h1>
-    <div class="product-container" style="margin-bottom: 50px;">
-        @foreach($all_cake as $cake)
-        @if ($cake['category'] == 1)
-        <a href="{{ route('detail', $cake->id) }}" class="product-card">
-            <div class="product-info">
-                <h2>{{ $cake->name }}</h2>
-                <p>{{ Str::limit($cake->info, 120, '...') }}</p>
-                <span class="price">{{ $cake->price }}₫</span>
-            </div>
-            <div class="product-image">
-                <img src="{{ asset( $cake->img) }}" alt="">
-            </div>
-        </a>
-        @endif
-        @endforeach
-    </div>
+<div class="menu">
+    @php
+        $categories = [
+            1 => 'BÁNH SINH NHẬT',
+            2 => 'BÁNH LẺ',
+            3 => 'ĐỒ UỐNG',
+            4 => 'GIFTSET',
+        ];
+    @endphp
 
-    <h1>BÁNH LẺ</h1>
-    <div class="product-container" style="margin-bottom: 50px;">
+    @foreach($categories as $key => $title)
+    <h1>{{ $title }}</h1>
+    <div class="product-container">
         @foreach($all_cake as $cake)
-        @if ($cake['category'] == 2)
-        <a href="{{ route('detail', $cake->id) }}" class="product-card">
-            <div class="product-info">
-                <h2>{{ $cake->name }}</h2>
-                <p>{{ Str::limit($cake->info, 120, '...') }}</p>
-                <span class="price">{{ $cake->price }}₫</span>
-            </div>
-            <div class="product-image">
-                <img src="{{ asset( $cake->img) }}" alt="">
-            </div>
-        </a>
-        @endif
+            @if ($cake['category'] == $key)
+            <a href="{{ route('detail', $cake->id) }}" class="product-card">
+                <div class="product-image">
+                    <img src="{{ asset($cake->img) }}" alt="">
+                </div>
+                <div class="product-info">
+                    <h2>{{ $cake->name }}</h2>
+                    <p>{{ Str::limit($cake->info, 120, '...') }}</p>
+                    <span class="price">{{ $cake->price }}₫</span>
+                </div>
+            </a>
+            @endif
         @endforeach
     </div>
-
-    <h1>ĐỒ UỐNG</h1>
-    <div class="product-container" style="margin-bottom: 50px;">
-        @foreach($all_cake as $cake)
-        @if ($cake['category'] == 3)
-        <a href="{{ route('detail', $cake->id) }}" class="product-card">
-            <div class="product-info">
-                <h2>{{ $cake->name }}</h2>
-                <p>{{ Str::limit($cake->info, 120, '...') }}</p>
-                <span class="price">{{ $cake->price }}₫</span>
-            </div>
-            <div class="product-image">
-                <img src="{{ asset( $cake->img) }}" alt="">
-            </div>
-        </a>
-        @endif
-        @endforeach
-    </div>
-
-    <h1>GIFTSET</h1>
-    <div class="product-container" style="margin-bottom: 50px;">
-        @foreach($all_cake as $cake)
-        @if ($cake['category'] == 4)
-        <a href="{{ route('detail', $cake->id) }}" class="product-card">
-            <div class="product-info">
-                <h2>{{ $cake->name }}</h2>
-                <p>{{ Str::limit($cake->info, 120, '...') }}</p>
-                <span class="price">{{ $cake->price }}₫</span>
-            </div>
-            <div class="product-image">
-                <img src="{{ asset( $cake->img) }}" alt="">
-            </div>
-        </a>
-        @endif
-        @endforeach
-    </div>
+    @endforeach
 </div>
+
+<style>
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .product-image img {
+        width: 150px;
+        height: 15  0px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .product-info {
+        margin-left: 40px;
+        flex: 1;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #e91e63;
+    }
+</style>
 
 <script>
     var swiper = new Swiper(".swiper", {

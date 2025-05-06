@@ -1,22 +1,3 @@
-<style>
-    .cart-icon {
-    position: relative;
-    display: inline-block;
-}
-
-#cart-count {
-    position: absolute;
-    top: -6px;
-    right: -10px;
-    background-color: brown;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-</style>
 
 <header>
         <!-- Thanh header -->
