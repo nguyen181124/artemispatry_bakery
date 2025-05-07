@@ -2,19 +2,23 @@
 
 @section('maincontent')
 <style>
-    body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .container-fluid {
-    flex-grow: 1; 
-    width: 95vw;
-    margin: auto;
-    padding: 20px;
-    padding-bottom: 55px;
+  /* Cho container chiếm toàn bộ không gian còn lại */
+  flex: 1 0 auto;
+  
+  /* Đảm bảo luôn cao ít nhất bằng viewport trừ footer */
+  min-height: calc(60vh - 55px);
+  
+  width: 95vw;
+  margin: auto;
+  padding: 20px;
 }
 
 table {
@@ -33,20 +37,12 @@ th, td {
 }
 
 th {
-    background: #007bff;
+    background: #bc9669;
     color: white;
 }
 
 tr:nth-child(even) {
     background: #f2f2f2;
-}
-
-footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    margin-top: auto; 
 }
 </style>
 <div class="container-fluid">
@@ -72,8 +68,4 @@ footer {
         </tbody>
     </table>
 </div>
-
-<footer class="text-center py-3 bg-dark text-white">
-    © 2024 Artemis Pastry. All rights reserved.
-</footer>
 @endsection

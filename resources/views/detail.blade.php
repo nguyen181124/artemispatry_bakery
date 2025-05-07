@@ -16,7 +16,7 @@
         display: flex;
         flex-direction: row;
         gap: 40px;
-        background-color:#5F4B3C;;
+        background-color:#5F4B3C;
     }
 
     .cake-image {
