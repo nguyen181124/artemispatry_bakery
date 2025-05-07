@@ -75,6 +75,44 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        }
+
+        .modal-box {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        text-align: center;
+        }
+
+        .modal-box button {
+        margin: 10px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+
+        #confirmLogout {
+        background-color: #d9534f;
+        color: white;
+        }
+
+        #cancelLogout {
+        background-color: #6c757d;
+        color: white;
+        }
     </style>
 </head>
 <body>
@@ -99,7 +137,13 @@
             <!-- Nội dung của các trang sẽ được tải và hiển thị ở đây -->
         </div>
     </div>
-
+    <div id="logoutModal" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+            <button id="confirmLogout">Đăng xuất</button>
+            <button id="cancelLogout">Hủy</button>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const links = document.querySelectorAll('nav a[data-url]');
@@ -145,6 +189,25 @@
             const defaultLink = links[0];
             defaultLink.classList.add('active');
             loadContent(defaultLink.getAttribute('data-url'));
+        });
+        const logoutForm = document.querySelector('form[action="{{ route('admin.logout') }}"]');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmBtn = document.getElementById('confirmLogout');
+        const cancelBtn = document.getElementById('cancelLogout');
+
+        logoutForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Chặn submit mặc định
+        logoutModal.style.display = 'flex'; // Hiện modal
+        });
+
+        // Xác nhận logout
+        confirmBtn.addEventListener('click', () => {
+            logoutForm.submit(); // Gửi form khi xác nhận
+        });
+
+        // Hủy logout
+        cancelBtn.addEventListener('click', () => {
+            logoutModal.style.display = 'none'; // Ẩn modal
         });
     </script>
 </body>
