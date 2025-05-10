@@ -20,14 +20,30 @@ class CartController extends Controller
 
     public function add(Request $request, $productId)
     {
-        $cake = Cake::findOrFail($productId);
-        $cart = Cart::firstOrCreate(
-            ['user_id' => Auth::id(), 'product_id' => $productId],
-            ['quantity' => $request->quantity ?? 1, 'image_url' => $request->image_url]
-        );
-        $cart->increment('quantity', $request->quantity ?? 1);
-        return $request->ajax() ? response()->json(['success' => 'Đã thêm vào giỏ hàng!']) : redirect()->route('cart.index');
+        $quantityToAdd = $request->quantity ?? 1;
+    
+        $cart = Cart::where('user_id', Auth::id())
+                    ->where('product_id', $productId)
+                    ->first();
+    
+        if ($cart) {
+            // Nếu đã có trong giỏ thì chỉ cần tăng thêm số lượng
+            $cart->increment('quantity', $quantityToAdd);
+        } else {
+            // Nếu chưa có thì tạo mới với số lượng
+            Cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+                'quantity' => $quantityToAdd,
+                'image_url' => $request->image_url,
+            ]);
+        }
+    
+        return $request->ajax()
+            ? response()->json(['success' => 'Đã thêm vào giỏ hàng!'])
+            : redirect()->route('cart.index');
     }
+    
 
     public function update(Request $request, $id)
     {

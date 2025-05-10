@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Thêm CSRF token vào dashboard -->
+    <!-- trong <head> của dashboard.blade.php -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <title>Admin Dashboard</title>
     <style>
         body {
@@ -14,7 +19,7 @@
         }
 
         header {
-            background-color: #4CAF50;
+            background-color: #5a4432;
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -27,13 +32,14 @@
         }
 
         nav {
-            background-color: #333;
+            background-color: #bc9669;
             padding: 15px;
             display: flex;
             justify-content: space-around;
             position: sticky;
             top: 0;
             z-index: 1000;
+            margin-bottom: 20px;
         }
 
         nav a {
@@ -41,21 +47,22 @@
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 5px;
-            background-color: #555;
+            background-color: #795d47;
             transition: background-color 0.3s ease;
         }
 
-        nav a:hover, nav a.active {
-            background-color: #4CAF50;
+        nav a:hover,
+        nav a.active {
+            background-color: #5a4432;
         }
 
         .container {
-            margin: 20px;
+            margin: auto;
         }
 
         button {
             padding: 10px 20px;
-            background-color: #333;
+            background-color: #5a4432;
             color: white;
             border: none;
             cursor: pointer;
@@ -65,38 +72,70 @@
         }
 
         button:hover {
-            background-color: #4CAF50;
+            background-color: #5a4432;
         }
 
-        .content {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: white;
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 20px 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal-box button {
+            margin: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #confirmLogout {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        #cancelLogout {
+            background-color: #6c757d;
+            color: white;
         }
     </style>
 </head>
+
 <body>
-
-    <header>
-        <h2>Chào Mừng</h2>
-    </header>
-
     <nav>
-        <a href="#" data-url="{{ route('addcake.index') }}">Quản lý bánh</a>
         <a href="#" data-url="{{ route('admin.orders.index') }}">Quản lý đơn hàng</a>
-        <a href="#" data-url="{{ route('admin.employees') }}">Quản lý nhân viên</a>
         <a href="#" data-url="{{ route('admin.users') }}">Quản lý người dùng</a>
+        <a href="#" data-url="{{ route('addcake.index') }}">Quản lý sản phẩm</a>
         <form action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
             @csrf
             <button type="submit">Logout</button>
         </form>
     </nav>
 
-    <div class="container">
-        <div id="content" class="content">
-            <!-- Nội dung của các trang sẽ được tải và hiển thị ở đây -->
+    <div id="content" class="content">
+        <!-- Nội dung của các trang sẽ được tải và hiển thị ở đây -->
+    </div>
+
+    <div id="logoutModal" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+            <button id="confirmLogout">Đăng xuất</button>
+            <button id="cancelLogout">Hủy</button>
         </div>
     </div>
 
@@ -146,6 +185,27 @@
             defaultLink.classList.add('active');
             loadContent(defaultLink.getAttribute('data-url'));
         });
+
+        const logoutForm = document.querySelector('form[action="{{ route('admin.logout') }}"]');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmBtn = document.getElementById('confirmLogout');
+        const cancelBtn = document.getElementById('cancelLogout');
+
+        logoutForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Chặn submit mặc định
+            logoutModal.style.display = 'flex'; // Hiện modal
+        });
+
+        // Xác nhận logout
+        confirmBtn.addEventListener('click', () => {
+            logoutForm.submit(); // Gửi form khi xác nhận
+        });
+
+        // Hủy logout
+        cancelBtn.addEventListener('click', () => {
+            logoutModal.style.display = 'none'; // Ẩn modal
+        });
     </script>
 </body>
+
 </html>

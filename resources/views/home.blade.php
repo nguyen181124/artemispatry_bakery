@@ -23,17 +23,17 @@
 <!-- Phần nội dung chính -->
 <div class="homebanner">
     <div class="grid">
-        <a href="" class="grid_item">
+        <a href="/banhsinhnhat" class="grid_item">
             <div class="card" style="width: 22rem; border: 0;">
                 <img class="card-img-top card-img-bottom" src="img/grid_item1.webp" alt="Card image cap">
             </div>
         </a>
-        <a href="" class="grid_item">
+        <a href="/banhle" class="grid_item">
             <div class="card" style="width: 22rem; border: 0;">
                 <img class="card-img-top card-img-bottom" src="img/grid_item2.webp" alt="Card image cap">
             </div>
         </a>
-        <a href="" class="grid_item">
+        <a href="/giftset" class="grid_item">
             <div class="card" style="width: 22rem; border: 0;">
                 <img class="card-img-top card-img-bottom" src="img/grid_item3.webp" alt="Card image cap">
             </div>

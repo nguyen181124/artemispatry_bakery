@@ -11,7 +11,7 @@
             background-color: #f9f9f9;
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
         h2 {
@@ -50,7 +50,7 @@
         }
 
         th {
-            background-color: #007bff;
+            background-color: #5a4432;
             color: white;
             font-size: 16px;
             text-transform: uppercase;
@@ -73,7 +73,7 @@
             margin-top: 20px;
             text-decoration: none;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #5a4432;
             color: white;
             border-radius: 4px;
             text-align: center;
@@ -82,7 +82,7 @@
         }
 
         .back-link:hover {
-            background-color: #0056b3;
+            background-color: #5a4432;
         }
 
         .container {

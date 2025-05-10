@@ -12,7 +12,7 @@
     @endphp
 
     @foreach($categories as $key => $title)
-    <h1>{{ $title }}</h1>
+    <h1 style="padding-top: 30px;">{{ $title }}</h1>
     <div class="product-container">
         @foreach($all_cake as $cake)
             @if ($cake['category'] == $key)

@@ -1,124 +1,191 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Giỏ hàng của bạn</title>
     <style>
- 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        body {
+            background: #f5f5f5;
             font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
             text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
             color: #333;
+            margin-bottom: 25px;
+            font-size: 28px;
         }
 
-        .table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .table th, .table td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #fafafa;
+            color: #555;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-align: left;
         }
 
-        .table th {
-            background-color: #f9f9f9;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .table td img {
+        .product-info img {
             width: 80px;
             height: 80px;
             border-radius: 10px;
+            object-fit: cover;
         }
 
-        .cart-item-details {
-            margin-left: 15px;
-        }
-
-        .cart-item-details h4 {
-            font-size: 18px;
+        .product-info h4 {
             margin: 0;
-        }
-
-        .cart-item-details p {
-            margin: 5px 0;
-            color: #666;
+            font-size: 18px;
+            color: #333;
         }
 
         .quantity {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            min-width: 90px;    
+        }
+
+        .quantity input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         .quantity button {
             padding: 5px 10px;
-            background-color: #c49a6c;
-            color: white;
+            margin: 0 5px;
+            background: #c49a6c;
             border: none;
             border-radius: 5px;
+            color: #fff;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
 
         .quantity button:hover {
-            background-color: #b0825b;
+            background: #b0825b;
+        }
+
+        .remove-btn {
+            background: #e74c3c;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
         }
 
         .cart-summary {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
+            text-align: right;
+            font-size: 20px;
             font-weight: bold;
-            color: #333;
             margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cart-summary span {
+            color: #e67e22;
         }
 
         .cart-footer {
-            display: flex;
-            justify-content: flex-end;
+            text-align: right;
         }
 
         .cart-footer button {
-            background-color: #c49a6c;
+            background: #c49a6c;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
+            font-size: 16px;
         }
 
         .cart-footer button:hover {
-            background-color: #b0825b;
+            background: #219150;
         }
-    </style>
+
+        a.continue {
+            display: inline-block;
+            margin-top: 10px;
+            color: #c49a6c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a.continue:hover {
+            color: #b0825b;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                padding: 10px;
+                text-align: right;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .product-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style> 
 </head>
 <body>
-    @extends('layouts.app')
-
-    @section('content')
     <div class="container">
-        <h2>Giỏ hàng của bạn</h2>
-        
+        <h2 style="color: #c49a6c">Giỏ hàng của bạn</h2>
+
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -127,8 +194,9 @@
 
         @if($cartItems->isEmpty())
             <p>Giỏ hàng của bạn đang trống.</p>
+            <a href="{{ route('all') }}" class="continue">Quay về mua hàng</a>
         @else
-            <table class="table">
+            <table>
                 <thead>
                     <tr>
                         <th>Sản phẩm</th>
@@ -141,15 +209,14 @@
                 <tbody>
                     @foreach($cartItems as $item)
                     <tr>
-                        <td>
-                            <!-- Display the image from the 'cake' table -->
-                            <img src="{{ $item->product->img }}" alt="{{ $item->product->name }}" style="width: 80px; height: 80px;">
-                            <div class="cart-item-details">
+                        <td data-label="Sản phẩm">
+                            <div class="product-info">
+                                <img src="{{ $item->product->img }}" alt="{{ $item->product->name }}">
                                 <h4>{{ $item->product->name }}</h4>
                             </div>
                         </td>
-                        <td>{{ number_format($item->product->price) }} VNĐ</td>
-                        <td>
+                        <td data-label="Giá">{{ number_format($item->product->price) }} VNĐ</td>
+                        <td data-label="Số lượng">
                             <div class="quantity">
                                 <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline;">
                                     @csrf
@@ -164,12 +231,12 @@
                                 </form>
                             </div>
                         </td>
-                        <td>{{ number_format($item->product->price * $item->quantity) }} VNĐ</td>
-                        <td>
+                        <td data-label="Tổng">{{ number_format($item->product->price * $item->quantity) }} VNĐ</td>
+                        <td data-label="Hành động">
                             <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                <button type="submit" class="remove-btn">Xóa</button>
                             </form>
                         </td>
                     </tr>
@@ -177,9 +244,10 @@
                 </tbody>
             </table>
 
+            <a href="{{ route('all') }}" class="continue">Mua hàng tiếp</a>
+
             <div class="cart-summary">
-                <span>Tổng cộng:</span>
-                <span>{{ number_format($total) }} VNĐ</span>
+                Tổng cộng: <span>{{ number_format($total) }} VNĐ</span>
             </div>
 
             <div class="cart-footer">
@@ -191,6 +259,5 @@
             </div>
         @endif
     </div>
-    @endsection
 </body>
-</html> 
+</html>

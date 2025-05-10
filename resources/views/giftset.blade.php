@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('maincontent')
-<div class="menu" style="margin-bottom: 97px;">
+<div class="menu">
     <h1>GIFTSET</h1>
     <div class="product-container">
         @foreach($giftset as $cake)

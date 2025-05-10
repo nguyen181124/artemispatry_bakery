@@ -104,6 +104,10 @@
                 max-width: 250px;
             }
         }
+
+        .info {
+            width: 900px;
+        }
     </style>
 </head>
 
@@ -114,11 +118,11 @@
             @csrf
             <h2>Thông tin đặt hàng</h2>
             <div class="section">
-                <input type="text" name="fullname" placeholder="Họ và tên" required>
-                <input type="text" name="phone" placeholder="Điện thoại" required>
+                <input class="info" type="text" name="fullname" placeholder="Họ và tên" required>
+                <input class="info" type="text" name="phone" placeholder="Điện thoại" required>
             </div>
             <div class="section">
-                <input type="text" name="address" placeholder="Địa chỉ" required>
+                <input class="info" type="text" name="address" placeholder="Địa chỉ" required>
                 <select name="city">
                     <option value="">Chọn tỉnh thành</option>
                     <option value="my-dinh">Mỹ Đình</option>

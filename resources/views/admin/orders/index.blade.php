@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
         h2 {
@@ -37,7 +37,7 @@
         }
 
         th {
-            background-color: #007bff;
+            background-color: #5a4432;
             color: white;
             font-size: 16px;
             text-transform: uppercase;
@@ -62,7 +62,7 @@
         .view-details {
             display: inline-block;
             padding: 8px 16px;
-            background-color: #007bff;
+            background-color: #5a4432;
             color: white;
             text-decoration: none;
             border-radius: 4px;
@@ -71,7 +71,7 @@
         }
 
         .view-details:hover {
-            background-color: #0056b3;
+            background-color: #5a4432;
         }
 
         /* Căn giữa nội dung */
@@ -86,7 +86,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="content">
         <h2>Danh sách Đơn hàng</h2>
 
         <table>
