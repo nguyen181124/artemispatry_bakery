@@ -102,3 +102,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders-export', [AdminOrderController::class, 'export'])->name('orders.export');
+});

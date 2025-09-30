@@ -113,6 +113,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div style="text-align: right; margin-bottom: 15px;">
+            <a href="{{ route('admin.orders.export') }}" class="view-details" style="background-color: green;">Xuất Excel</a>
+        </div>
+    
     </div>
 
     <script>

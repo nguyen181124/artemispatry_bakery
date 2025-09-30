@@ -36,7 +36,7 @@ class AddCakeController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $isUpdate ? 'Cập nhật bánh thành công!' : 'Thêm bánh thành công!',
+                'message' => $isUpdate ? 'Cập nhật sản phẩm công!' : 'Thêm sản phẩm công!',
                 'cake' => $cake,
                 'isUpdate' => $isUpdate,
             ], 200);
@@ -56,7 +56,7 @@ class AddCakeController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Đã xóa bánh thành công!',
+                'message' => 'Đã xóa sản phẩm công!',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
